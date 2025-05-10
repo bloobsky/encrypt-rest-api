@@ -5,3 +5,4 @@ motor==3.4.0
 tornado==6.4
 click==8.1.7
 Werkzeug==2.3.7
+flake8==7.0.0
