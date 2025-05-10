@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from api.conf import MONGODB_DBNAME
 from api.crypto_utils import hash_password
 
+
 class LoginTestCase(unittest.TestCase):
     def setUp(self):
         self.client = app.test_client()
@@ -23,7 +24,7 @@ class LoginTestCase(unittest.TestCase):
         })
 
     def test_create_account(self):
-        user = self.db.users.find_one({ "email": self.email })
+        user = self.db.users.find_one({"email": self.email})
         self.assertIsNotNone(user)
         self.assertIn("password", user)
         self.assertIn("salt", user)
@@ -33,7 +34,10 @@ class LoginTestCase(unittest.TestCase):
             "email": self.email,
             "password": self.password
         }
-        response = self.client.post('/students/api/login', data=json.dumps(payload), content_type='application/json')
+        response = self.client.post(
+            '/students/api/login',
+            data=json.dumps(payload),
+            content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertIn("token", response.get_json())
 
@@ -42,7 +46,10 @@ class LoginTestCase(unittest.TestCase):
             "email": self.email.upper(),
             "password": self.password
         }
-        response = self.client.post('/students/api/login', data=json.dumps(payload), content_type='application/json')
+        response = self.client.post(
+            '/students/api/login',
+            data=json.dumps(payload),
+            content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertIn("token", response.get_json())
 
@@ -51,7 +58,10 @@ class LoginTestCase(unittest.TestCase):
             "email": self.email,
             "password": "wrongpass"
         }
-        response = self.client.post('/students/api/login', data=json.dumps(payload), content_type='application/json')
+        response = self.client.post(
+            '/students/api/login',
+            data=json.dumps(payload),
+            content_type='application/json')
         self.assertEqual(response.status_code, 403)
 
     def test_login_wrong_email(self):
@@ -59,5 +69,8 @@ class LoginTestCase(unittest.TestCase):
             "email": "notexist@test.com",
             "password": self.password
         }
-        response = self.client.post('/students/api/login', data=json.dumps(payload), content_type='application/json')
+        response = self.client.post(
+            '/students/api/login',
+            data=json.dumps(payload),
+            content_type='application/json')
         self.assertEqual(response.status_code, 403)

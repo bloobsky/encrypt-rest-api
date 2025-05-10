@@ -1,9 +1,9 @@
 import unittest
-import json
 from app import app
 from pymongo import MongoClient
 from api.conf import MONGODB_DBNAME
 from api.crypto_utils import encrypt
+
 
 class UserTestCase(unittest.TestCase):
     def setUp(self):
@@ -22,7 +22,10 @@ class UserTestCase(unittest.TestCase):
         })
 
     def test_get_user_info(self):
-        response = self.client.get('/students/api/user', headers={"X-Token": "token123"})
+        response = self.client.get(
+            '/students/api/user',
+            headers={
+                "X-Token": "token123"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get_json()["displayName"], "Flask User")
 
@@ -33,7 +36,12 @@ class UserTestCase(unittest.TestCase):
         self.assertEqual(response.get_json()["message"], "Token missing!")
 
     def test_user_wrong_token(self):
-        response = self.client.get('/students/api/user', headers={"X-Token": "wrongtoken"})
+        response = self.client.get(
+            '/students/api/user',
+            headers={
+                "X-Token": "wrongtoken"})
         self.assertEqual(response.status_code, 403)
         self.assertIn("message", response.get_json())
-        self.assertEqual(response.get_json()["message"], "Invalid or expired token!")
+        self.assertEqual(
+            response.get_json()["message"],
+            "Invalid or expired token!")
