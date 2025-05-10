@@ -1,5 +1,4 @@
 import unittest
-import json
 from app import app
 from pymongo import MongoClient
 from api.conf import MONGODB_DBNAME

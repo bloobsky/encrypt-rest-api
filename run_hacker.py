@@ -1,5 +1,4 @@
 import click
-from json import loads
 from motor.motor_tornado import MotorClient
 from tornado.gen import coroutine
 from tornado.ioloop import IOLoop
