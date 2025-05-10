@@ -4,6 +4,7 @@ from app import app
 from pymongo import MongoClient
 from api.conf import MONGODB_DBNAME
 
+
 class RegistrationTestCase(unittest.TestCase):
     def setUp(self):
         self.client = app.test_client()
