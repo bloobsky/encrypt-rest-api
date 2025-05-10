@@ -1,0 +1,4 @@
+MONGODB_HOST = 'localhost'
+MONGODB_PORT = 27017
+MONGODB_DBNAME = 'cyberStudents'
+SECRET_KEY = b'0123456789abcdef0123456789abcdef'
