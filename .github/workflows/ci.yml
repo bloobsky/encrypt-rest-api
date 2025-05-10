@@ -45,3 +45,7 @@ jobs:
         nohup python app.py &
         sleep 5  # give the server time to start
         python -m unittest discover -s test -v
+
+    - name: Hacking the database
+      run: |
+        python run_hacker.py list
