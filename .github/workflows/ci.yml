@@ -92,7 +92,7 @@ jobs:
         echo "Hacking the database --- trying to list all users"
         python run_hacker.py list
 
-    -name: Decrypting the database
+    - name: Decrypting the database
       run: |
         echo "Decrypting the database --- trying to list and decrypt all  users"
         python decrypt_db.py
