@@ -37,17 +37,20 @@ jobs:
 
     - name: Lint with flake8
       run: |
+        echo "Checking code linting"
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Run tests
       run: |
+        echo "Running tests"
         nohup python app.py &
         sleep 5  # give the server time to start
         python -m unittest discover -s test -v
 
     - name: Populate the database
       run: |
+        echo "Populating the database with 3 test users"
         curl -X POST http://localhost:4000/students/api/registration \
           -H "Content-Type: application/json" \
           -d '{
@@ -86,4 +89,5 @@ jobs:
 
     - name: Hacking the database
       run: |
+        echo "Hacking the database --- trying to list all users"
         python run_hacker.py list
