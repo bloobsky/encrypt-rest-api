@@ -37,15 +37,62 @@ jobs:
 
     - name: Lint with flake8
       run: |
+        echo "Checking code linting"
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Run tests
       run: |
+        echo "Running tests"
         nohup python app.py &
         sleep 5  # give the server time to start
         python -m unittest discover -s test -v
 
+    - name: Populate the database
+      run: |
+        echo "Populating the database with 3 test users"
+        curl -X POST http://localhost:4000/students/api/registration \
+          -H "Content-Type: application/json" \
+          -d '{
+            "email": "bloobsky@gmail.com",
+            "password": "SuperSecurePass1!",
+            "displayName": "Mateusz Jakusz",
+            "address": "1 Ennis Way",
+            "phone": "0830000001",
+            "dateOfBirth": "1989-06-21",
+            "disabilities": ["None"]
+          }'
+
+        curl -X POST http://localhost:4000/students/api/registration \
+          -H "Content-Type: application/json" \
+          -d '{
+            "email": "student@setu.ie",
+            "password": "CarlowPass2!",
+            "displayName": "SETU Carlow",
+            "address": "SETU Campus, Kilkenny Road",
+            "phone": "0830000002",
+            "dateOfBirth": "2001-10-10",
+            "disabilities": ["Dyslexia"]
+          }'
+
+        curl -X POST http://localhost:4000/students/api/registration \
+          -H "Content-Type: application/json" \
+          -d '{
+            "email": "tester@setu.ie",
+            "password": "TestPass3!",
+            "displayName": "SETU Tester",
+            "address": "SETU QA Dept",
+            "phone": "0830000003",
+            "dateOfBirth": "1999-04-04",
+            "disabilities": ["None"]
+          }'
+
     - name: Hacking the database
       run: |
+        echo "Hacking the database --- trying to list all users"
         python run_hacker.py list
+
+    - name: Decrypting the database
+      run: |
+        echo "Decrypting the database --- trying to list and decrypt all  users"
+        python decrypt_db.py
