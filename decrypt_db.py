@@ -14,4 +14,3 @@ for user in db.users.find({}):
     print('DOB:', decrypt(user.get('dateOfBirth', '')))
     print('Disabilities:', decrypt(user.get('disabilities', '')))
     print('---')
-
