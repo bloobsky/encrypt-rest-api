@@ -30,13 +30,9 @@ This project is a secure RESTful web API built using **Flask** and **MongoDB**. 
 
 ## 🚀 Setup Instructions
 
-### 🧰 1. Clone the Repository
+### Clone the repo and install docker
 
-```bash
-cd encrypt-rest-api
-```
-
-### 🐍 2. Create a Virtual Environment
+### Activate virtual environment
 
 ```bash
 python3 -m venv venv
